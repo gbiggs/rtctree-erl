@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+killall omniNames
+rtm-naming
+pushd comps
+cp rtc.conf.dir rtc.conf
+./ConsoleInComp &
+./ConsoleOutComp &
+./SensorComp &
+./ControllerComp &
+./MotorComp &
+./ConfigSampleComp &
+sleep 2
+rtcon /localhost/blurgle.host/ConsoleIn0.rtc:out /localhost/blurgle.host/ConsoleOut0.rtc:in
+read -p "Waiting..."
+killall -SIGINT ConsoleInComp
+killall -SIGINT ConsoleOutComp
+killall -SIGINT SensorComp
+killall -SIGINT ControllerComp
+killall -SIGINT MotorComp
+killall -SIGINT ConfigSampleComp
+

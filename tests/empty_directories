@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+killall omniNames
+rtm-naming
+pushd comps
+cp rtc.conf.dir rtc.conf
+./ConsoleInComp &
+sleep 3
+killall -SIGINT ConsoleInComp
+

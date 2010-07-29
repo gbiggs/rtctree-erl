@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+killall omniNames
+rtm-naming
+pushd comps
+cp rtc.conf.dir rtc.conf
+rtcd -d &
+/home/geoff/share/OpenRTM-aist/examples/ConsoleInComp &
+/home/geoff/share/OpenRTM-aist/examples/ConsoleOutComp &
+/home/geoff/share/OpenRTM-aist/examples/SensorComp &
+/home/geoff/share/OpenRTM-aist/examples/ControllerComp &
+/home/geoff/share/OpenRTM-aist/examples/MotorComp &
+/home/geoff/share/OpenRTM-aist/examples/ConfigSampleComp &
+/home/geoff/share/OpenRTM-aist/examples/MyServiceProviderComp &
+/home/geoff/share/OpenRTM-aist/examples/MyServiceConsumerComp &
+sleep 2
+rtcon /localhost/blurgle.host/ConsoleIn0.rtc:out /localhost/blurgle.host/ConsoleOut0.rtc:in
+read -p "Waiting..."
+killall -SIGINT ConsoleInComp
+killall -SIGINT ConsoleOutComp
+killall -SIGINT SensorComp
+killall -SIGINT ControllerComp
+killall -SIGINT MotorComp
+killall -SIGINT ConfigSampleComp
+killall -SIGINT MyServiceProviderComp
+killall -SIGINT MyServiceConsumerComp
+killall -SIGINT rtcd
+popd
+
