@@ -128,8 +128,11 @@ parse_server(S) ->
 
 
 start_orber() ->
-    ok = orber:uninstall(),
-    ok = orber:jump_start(),
+    mnesia:start(),
+    corba:orb_init([{domain, "OpenRTM-erlang"}, {iiop_port,2809},
+            {iiop_connection_timeout, 120}]),
+    orber:install([node()], [{ifr_storage_type, ram_copies}]),
+    orber:start(),
     oe_SDOPackage:oe_register(),
     oe_RTC:oe_register(),
     oe_OpenRTM:oe_register(),

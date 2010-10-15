@@ -17,8 +17,6 @@ MODS = component \
 	   port \
 	   rtctree \
 	   server \
-	   test \
-	   test2 \
 	   ticker \
 	   unknown \
 	   utils
